@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LEVEL HOSE</title>
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="LEVEL HOSE">
@@ -12,34 +11,31 @@
 <link rel="apple-touch-icon" href="IMG_3760.png">
 <link rel="icon" type="image/png" href="IMG_3760.png">
 <link rel="manifest" href='data:application/manifest+json,{"name":"LEVEL HOSE","short_name":"LEVEL HOSE","display":"standalone","background_color":"%2312161f","theme_color":"%2312161f","start_url":".","icons":[{"src":"IMG_3760.png","sizes":"512x512","type":"image/png"}]}'>
-
-
 <style>
   :root {
     --bg: #12161f; --card: #1c2230; --text: #e2e8f0;
     --muted: #94a3b8; --accent: #eab308; --port: #ef4444;
     --stbd: #22c55e; --border: #2e3748;
   }
-  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-  body { margin: 0; padding: env(safe-area-inset-top, 16px) 16px 24px; background: var(--bg); color: var(--text); display: flex; justify-content: center; }
+  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+  body { margin: 0; padding: 16px; background: var(--bg); color: var(--text); display: flex; justify-content: center; }
   .app { width: 100%; max-width: 480px; }
-  h1 { font-size: 20px; text-align: center; margin: 12px 0 16px; letter-spacing: 1px; color: var(--accent); }
+  h1 { font-size: 20px; text-align: center; margin: 8px 0 16px; color: var(--accent); }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
   .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .row:last-child { margin-bottom: 0; }
   label { font-size: 14px; color: var(--muted); font-weight: 600; }
-  input[type="number"] {
-    width: 115px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+  input {
+    width: 115px; padding: 10px; border-radius: 10px; border: 1px solid var(--border);
     background: #0f131a; color: #fff; font-size: 17px; text-align: right; font-weight: bold;
   }
-  input[type="number"]:focus { outline: none; border-color: var(--accent); }
   .toggle-group { display: flex; gap: 8px; }
   .toggle-btn {
     padding: 10px 18px; border-radius: 10px; border: 1px solid var(--border);
-    background: #0f131a; color: var(--muted); font-weight: bold; cursor: pointer; font-size: 14px;
+    background: #0f131a; color: var(--muted); font-weight: bold; font-size: 14px;
   }
-  .toggle-btn.active-port { background: var(--port); color: #fff; border-color: var(--port); }
-  .toggle-btn.active-stbd { background: var(--stbd); color: #fff; border-color: var(--stbd); }
+  .active-port { background: var(--port); color: #fff; border-color: var(--port); }
+  .active-stbd { background: var(--stbd); color: #fff; border-color: var(--stbd); }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; }
   .box { background: #0f131a; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border); }
   .box-title { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
@@ -48,10 +44,9 @@
   .stbd-badge { color: var(--stbd); }
   .target-box { background: rgba(234, 179, 8, 0.15); border-color: var(--accent); }
   .target-box .box-val { color: var(--accent); font-size: 18px; }
-  table { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 15px; }
-  th { color: var(--muted); font-weight: 600; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { color: var(--muted); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
   td { padding: 9px 4px; text-align: center; border-bottom: 1px solid #232a3b; font-weight: 600; }
-  tr:last-child td { border-bottom: none; }
   .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 </style>
 </head>
@@ -63,24 +58,24 @@
     <div class="row">
       <label>SIDE ALONGSIDE</label>
       <div class="toggle-group">
-        <button id="btnPort" class="toggle-btn active-port" onclick="setSide('PORT')">PORT</button>
-        <button id="btnStbd" class="toggle-btn" onclick="setSide('STBD')">STBD</button>
+        <button type="button" id="btnPort" class="toggle-btn active-port" onclick="setSide('PORT')">PORT</button>
+        <button type="button" id="btnStbd" class="toggle-btn" onclick="setSide('STBD')">STBD</button>
       </div>
     </div>
     <div class="row">
       <label>VSL BREADTH (m)</label>
-      <input type="number" id="breadth" value="32.26" step="0.01" oninput="calc()">
+      <input type="text" inputmode="decimal" id="breadth" value="32.26" oninput="calc()">
     </div>
   </div>
 
   <div class="card">
     <div class="row">
       <label class="port-badge">LEVEL PORT (cm)</label>
-      <input type="number" id="lvlPort" value="93.0" step="0.1" oninput="calc()">
+      <input type="text" inputmode="decimal" id="lvlPort" value="93.0" oninput="calc()">
     </div>
     <div class="row">
       <label class="stbd-badge">LEVEL STBD (cm)</label>
-      <input type="number" id="lvlStbd" value="88.0" step="0.1" oninput="calc()">
+      <input type="text" inputmode="decimal" id="lvlStbd" value="88.0" oninput="calc()">
     </div>
     <div class="grid-3" style="margin-top: 12px;">
       <div class="box">
@@ -100,15 +95,15 @@
     </div>
     <div class="row">
       <label>FWD (m)</label>
-      <input type="number" id="obsFwd" value="8.00" step="0.01" oninput="calc()">
+      <input type="text" inputmode="decimal" id="obsFwd" value="8.00" oninput="calc()">
     </div>
     <div class="row">
       <label>MID (m)</label>
-      <input type="number" id="obsMid" value="9.00" step="0.01" oninput="calc()">
+      <input type="text" inputmode="decimal" id="obsMid" value="9.00" oninput="calc()">
     </div>
     <div class="row">
       <label>AFT (m)</label>
-      <input type="number" id="obsAft" value="10.00" step="0.01" oninput="calc()">
+      <input type="text" inputmode="decimal" id="obsAft" value="10.00" oninput="calc()">
     </div>
   </div>
 
@@ -136,16 +131,14 @@
 </div>
 
 <script>
-  if ('serviceWorker' in navigator) {
-    const swCode = `
-      self.addEventListener('install', e => e.waitUntil(caches.open('lh-v1').then(c => c.addAll(['./']))));
-      self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  var side = 'PORT';
+
+  function num(id) {
+    var val = document.getElementById(id).value.replace(',', '.');
+    var parsed = parseFloat(val);
+    return isNaN(parsed) ? 0 : parsed;
   }
 
-  let side = 'PORT';
   function setSide(s) {
     side = s;
     document.getElementById('btnPort').className = 'toggle-btn' + (s === 'PORT' ? ' active-port' : '');
@@ -155,26 +148,26 @@
   }
 
   function calc() {
-    const B = parseFloat(document.getElementById('breadth').value) || 32.26;
-    const lvlP = parseFloat(document.getElementById('lvlPort').value) || 0;
-    const lvlS = parseFloat(document.getElementById('lvlStbd').value) || 0;
-    const obsFwd = parseFloat(document.getElementById('obsFwd').value) || 0;
-    const obsMid = parseFloat(document.getElementById('obsMid').value) || 0;
-    const obsAft = parseFloat(document.getElementById('obsAft').value) || 0;
+    var B = num('breadth') || 32.26;
+    var lvlP = num('lvlPort');
+    var lvlS = num('lvlStbd');
+    var obsFwd = num('obsFwd');
+    var obsMid = num('obsMid');
+    var obsAft = num('obsAft');
 
-    const diff = lvlS - lvlP;
-    const target = (lvlP + lvlS) / 2;
-    const diffM = diff / 100.0;
+    var diff = lvlS - lvlP;
+    var target = (lvlP + lvlS) / 2;
+    var diffM = diff / 100.0;
 
-    const listDeg = Math.atan(diffM / B) * (180 / Math.PI);
-    const listAbs = Math.abs(listDeg).toFixed(2);
-    const listDir = Math.abs(listDeg) < 0.005 ? 'UPRIGHT' : (listDeg < 0 ? 'PORT' : 'STBD');
+    var listDeg = Math.atan(diffM / B) * (180 / Math.PI);
+    var listAbs = Math.abs(listDeg).toFixed(2);
+    var listDir = Math.abs(listDeg) < 0.005 ? 'UPRIGHT' : (listDeg < 0 ? 'PORT' : 'STBD');
 
-    const deltaFwd = -0.1 * diffM;
-    const deltaMid = -1.0 * diffM;
-    const deltaAft = -(1 / 3) * diffM;
+    var deltaFwd = -0.1 * diffM;
+    var deltaMid = -1.0 * diffM;
+    var deltaAft = -(1 / 3) * diffM;
 
-    let fwdP, fwdS, midP, midS, aftP, aftS;
+    var fwdP, fwdS, midP, midS, aftP, aftS;
     if (side === 'PORT') {
       fwdP = obsFwd; fwdS = obsFwd - deltaFwd;
       midP = obsMid; midS = obsMid - deltaMid;
@@ -185,13 +178,13 @@
       aftS = obsAft; aftP = obsAft + deltaAft;
     }
 
-    const fwdMid = (fwdP + fwdS) / 2;
-    const midMid = (midP + midS) / 2;
-    const aftMid = (aftP + aftS) / 2;
-    const faMean = (fwdMid + aftMid) / 2;
-    const qtrMean = (faMean + midMid) / 2;
-    const trim = aftMid - fwdMid;
-    const hogSag = faMean - midMid;
+    var fwdMid = (fwdP + fwdS) / 2;
+    var midMid = (midP + midS) / 2;
+    var aftMid = (aftP + aftS) / 2;
+    var faMean = (fwdMid + aftMid) / 2;
+    var qtrMean = (faMean + midMid) / 2;
+    var trim = aftMid - fwdMid;
+    var hogSag = faMean - midMid;
 
     document.getElementById('resDiff').innerText = diff.toFixed(1);
     document.getElementById('resTarget').innerText = target.toFixed(1) + ' cm';
@@ -207,4 +200,12 @@
 
     document.getElementById('resQtr').innerText = qtrMean.toFixed(3) + ' m';
     document.getElementById('resTrim').innerText = trim.toFixed(3) + ' m';
-    const deflType = Math.abs(hogSag) < 0.001 ? '' : (hogSag > 0 ? ' (HOG)' : ' (SAG)');
+    var deflType = Math.abs(hogSag) < 0.001 ? '' : (hogSag > 0 ? ' (HOG)' : ' (SAG)');
+    document.getElementById('resDefl').innerText = Math.abs(hogSag).toFixed(3) + ' m' + deflType;
+    document.getElementById('resList').innerText = listDir === 'UPRIGHT' ? '0.00° UPRIGHT' : (listAbs + '° ' + listDir);
+  }
+
+  calc();
+</script>
+</body>
+</html>
